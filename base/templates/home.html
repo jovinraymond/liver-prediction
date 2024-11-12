@@ -11,7 +11,34 @@
     <title>Home Page</title>
   </head>
   <body>
-    <h1>Home Page</h1>
+   
+    <h1>Liver Cirrhosis Prediction</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="n_days">N-Days:</label>
+        <input type="number" step="any" name="n_days" required><br><br>
+
+        <label for="hepatomegaly">Hepatomegaly:</label>
+        <input type="number" step="any" name="hepatomegaly" required><br><br>
+
+        <label for="albumin">Albumin:</label>
+        <input type="number" step="any" name="albumin" required><br><br>
+
+        <label for="platelets">Platelets:</label>
+        <input type="number" step="any" name="platelets" required><br><br>
+
+        <label for="prothrombin">Prothrombin:</label>
+        <input type="number" step="any" name="prothrombin" required><br><br>
+
+        <label for="status">Status:</label>
+        <input type="number" step="any" name="status" required><br><br>
+
+        <button type="submit">Predict Stage</button>
+    </form>
+
+    {% if prediction is not None %}
+        <h2>Predicted Stage: {{ prediction }}</h2>
+    {% endif %}
      <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
 
     <!-- Optional JavaScript -->
