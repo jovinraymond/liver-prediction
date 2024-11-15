@@ -105,7 +105,7 @@ def RetrievalPage(request):
     # Pass the predictions to the template
     return render(request, 'retrieval.html', {'predictions': predictions})
 
-
+@login_required(login_url='login')
 def visualization_view(request):
     # Count the number of patients in each stage
     stage_counts = (
