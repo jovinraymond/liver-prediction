@@ -7,6 +7,9 @@ import joblib
 import os
 from django.conf import settings
 from .models import LiverCirrhosisPrediction
+import matplotlib.pyplot as plt
+from django.db import models
+
 
 # Load the prediction model
 model_path = os.path.join(settings.BASE_DIR, 'base', 'ml_models', 'liver_cirrhosis_model.pkl')
@@ -101,3 +104,30 @@ def RetrievalPage(request):
 
     # Pass the predictions to the template
     return render(request, 'retrieval.html', {'predictions': predictions})
+
+
+def visualization_view(request):
+    # Count the number of patients in each stage
+    stage_counts = (
+        LiverCirrhosisPrediction.objects.values('prediction')
+        .order_by('prediction')
+        .annotate(count=models.Count('prediction'))
+    )
+
+    # Prepare data for the plot
+    stages = [entry['prediction'] for entry in stage_counts]
+    counts = [entry['count'] for entry in stage_counts]
+
+    # Generate the bar plot
+    plt.figure(figsize=(8, 6))
+    plt.bar(stages, counts, color=['blue', 'green', 'red'])
+    plt.xlabel("Liver Cirrhosis Stage")
+    plt.ylabel("Count")
+    plt.title("Count of People by Liver Cirrhosis Stage")
+
+    # Save the plot to static files
+    plot_path = os.path.join(settings.BASE_DIR, 'base', 'static', 'images', 'stage_counts_plot.png')
+    plt.savefig(plot_path)
+    plt.close()  # Close the plot to free memory
+
+    return render(request, 'visualization.html', {'plot_url': 'images/stage_counts_plot.png'})
