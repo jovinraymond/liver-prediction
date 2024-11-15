@@ -93,3 +93,11 @@ def LoginPage(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+
+@login_required(login_url='login')
+def RetrievalPage(request):
+    # Retrieve all entries from the database
+    predictions = LiverCirrhosisPrediction.objects.all().order_by('-id')  # Order by latest
+
+    # Pass the predictions to the template
+    return render(request, 'retrieval.html', {'predictions': predictions})
