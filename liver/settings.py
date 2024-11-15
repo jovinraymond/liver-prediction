@@ -143,3 +143,8 @@ SECRET_KEY = 'your-secure-random-key'
 # Session timeout settings (e.g., 30 minutes)
 SESSION_COOKIE_AGE = 1800  # Time in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Ends session on browser close
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'base', 'static')]
+
