@@ -127,3 +127,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SECURITY IMPLEMENTATIONS OF THE MVC 
+
+# Ensure cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Prevent JavaScript from accessing session cookies
+SESSION_COOKIE_HTTPONLY = True
+
+# Use a secure random session key
+SECRET_KEY = 'your-secure-random-key'
+
+# Session timeout settings (e.g., 30 minutes)
+SESSION_COOKIE_AGE = 1800  # Time in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Ends session on browser close
