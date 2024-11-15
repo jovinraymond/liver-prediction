@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 
-{%  load static %}
+{% load static %}
 
 {% block content %}
-<body>
-    <h1>Liver Cirrhosis Stage Count</h1>
-    <img src="{% static plot_url %}" alt="Liver Cirrhosis Stage Count Plot">
-</body>
+<div class="container mt-4">
+  <!-- Page Header -->
+  <div class="text-center mb-4">
+    <h1 class="display-4 text-dark">Liver Cirrhosis Stage Count</h1>
+    <p class="lead text-dark">Visualizing the distribution of liver cirrhosis stages</p>
+  </div>
 
-{%  endblock %}
+  <!-- Plot Container -->
+  <div class="d-flex justify-content-center">
+    <div class="card shadow-lg" style="width: 80%; background-color: rgba(255, 255, 255, 0.9);">
+      <div class="card-body text-center">
+        <img 
+          src="{% static plot_url %}" 
+          alt="Liver Cirrhosis Stage Count Plot" 
+          class="img-fluid rounded" 
+          style="max-height: 500px; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
