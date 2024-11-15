@@ -8,6 +8,7 @@ class LiverCirrhosisPrediction(models.Model):
     prothrombin = models.FloatField()
     status = models.FloatField()
     prediction = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Prediction: {self.prediction}"
