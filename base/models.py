@@ -1,14 +1,7 @@
 from django.db import models
 
 class LiverCirrhosisPrediction(models.Model):
-<<<<<<< Updated upstream
-    n_days = models.FloatField()
-    hepatomegaly = models.FloatField()
-    albumin = models.FloatField()
-    platelets = models.FloatField()
-    prothrombin = models.FloatField()
-    status = models.FloatField()
-=======
+
     n_days = models.FloatField(max_length=10)
     status = models.IntegerField(max_length=4)
     drug = models.IntegerField(max_length=4)
@@ -29,7 +22,6 @@ class LiverCirrhosisPrediction(models.Model):
     Tryglicerides = models.FloatField(max_length=10)
     platelets=models.FloatField(max_length=10)
     prothrombin = models.FloatField(default=0.0,max_length=10)
->>>>>>> Stashed changes
     prediction = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
