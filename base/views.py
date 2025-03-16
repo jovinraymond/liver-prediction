@@ -12,7 +12,7 @@ from django.db import models
 
 
 # Load the prediction model
-model_path = os.path.join(settings.BASE_DIR, 'base', 'ml_models', 'liver_cirrhosis_model.pkl')
+model_path = os.path.join(settings.BASE_DIR, 'base', 'ml_models', 'best_model.pkl')
 model = joblib.load(model_path)
 
 # Home page view
@@ -26,23 +26,50 @@ def PredictionPage(request):
     prediction = None
     if request.method == 'POST':
         n_days = float(request.POST.get('n_days'))
+        status = int(request.POST.get('status'))
+        drug = int(request.POST.get('drug'))
+        age = int(request.POST.get('age'))
+        sex = int(request.POST.get('sex'))
+        ascites = float(request.POST.get('ascites'))
         hepatomegaly = float(request.POST.get('hepatomegaly'))
+        spiders = float(request.POST.get('spiders')) 
+        edema = float(request.POST.get('edema'))
+        bilirubin = float(request.POST.get('bilirubin')) 
+        cholesterol = float(request.POST.get('cholesterol')) 
         albumin = float(request.POST.get('albumin'))
+        copper = float(request.POST.get('copper'))
+        alk_phos = float(request.POST.get('alk_phos'))
+        SGOT = float(request.POST.get('SGOT'))
+        Tryglicerides = float(request.POST.get('Tryglicerides'))
         platelets = float(request.POST.get('platelets'))
-        prothrombin = float(request.POST.get('prothrombin'))
-        status = float(request.POST.get('status'))
+        prothrombin = float(request.POST.get('prothrombin',None))
+        if prothrombin is None:
+   
+            prothrombin = 0 
 
         # Model prediction
-        prediction = model.predict([[n_days, hepatomegaly, albumin, platelets, prothrombin, status]])[0]
+        prediction = model.predict([[n_days, status, drug, age, sex, ascites, hepatomegaly, spiders, edema, bilirubin, cholesterol, albumin, copper, alk_phos, SGOT,Tryglicerides, platelets, prothrombin]])[0]
 
         # Save prediction result to the database
         LiverCirrhosisPrediction.objects.create(
             n_days=n_days,
+            status=status,
+            drug=drug,
+            age=age,
+            sex=sex,
+            ascites=ascites,
             hepatomegaly=hepatomegaly,
+            spiders=spiders,
+            edema=edema,
+            bilirubin=bilirubin,
+            cholesterol=cholesterol,
             albumin=albumin,
+            copper=copper,
+            alk_phos=alk_phos,
+            SGOT=SGOT,
+            Tryglicerides=Tryglicerides,
             platelets=platelets,
             prothrombin=prothrombin,
-            status=status,
             prediction=prediction
         )
 
