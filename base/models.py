@@ -16,7 +16,6 @@ class LiverCirrhosisPrediction(models.Model):
     albumin = models.FloatField(max_length=10)
     copper = models.FloatField(max_length=10)
     alk_phos = models.FloatField(max_length=8)
-    platelets = models.FloatField(max_length=10)
     prothrombin = models.FloatField(max_length=10)
     SGOT = models.FloatField(max_length=10)
     Tryglicerides = models.FloatField(max_length=10)
@@ -25,5 +24,6 @@ class LiverCirrhosisPrediction(models.Model):
     prediction = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+ 
     def __str__(self):
         return f"Prediction: {self.prediction}"
